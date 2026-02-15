@@ -12,8 +12,10 @@ public class SysUserServiceImpl implements SysUserService{
     @Override
     public LoginResult login(String userAccount, String userPassword) {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        //将数据库查询结果序列化为SysUser对象
         SysUser sysUser = userMapper.selectOne(
                 queryWrapper.select(SysUser::getPassword).eq(SysUser::getUserAccount,userAccount));
+        //返回结果的创建
         LoginResult loginResult=new LoginResult();
         if(sysUser.getUserAccount()==null){
             loginResult.setCode(0);
