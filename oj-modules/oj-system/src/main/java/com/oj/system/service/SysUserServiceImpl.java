@@ -7,7 +7,9 @@ import com.oj.system.domain.LoginDTO;
 import com.oj.system.domain.SysUser;
 import com.oj.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SysUserServiceImpl implements SysUserService{
     @Autowired
     SysUserMapper userMapper;
