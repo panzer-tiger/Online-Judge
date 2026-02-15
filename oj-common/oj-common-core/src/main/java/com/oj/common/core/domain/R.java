@@ -1,5 +1,10 @@
 package com.oj.common.core.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class R<T> {
     //响应代码
     private int code;
