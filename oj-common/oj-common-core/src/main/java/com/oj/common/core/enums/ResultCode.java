@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
+
 @AllArgsConstructor
 public enum ResultCode {
     /**
@@ -48,4 +48,12 @@ public enum ResultCode {
     FAILED_RABBIT_PRODUCE(3701, "mq生产消息异常");
     private int code;
     private String msg;
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }
