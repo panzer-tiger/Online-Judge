@@ -1,6 +1,7 @@
 package com.oj.system.controller;
 
 import com.oj.common.core.domain.R;
+import com.oj.common.core.enums.ResultCode;
 import com.oj.system.domain.LoginDTO;
 import com.oj.system.domain.SysUser;
 import com.oj.system.domain.SysUserSaveDTO;
@@ -66,7 +67,7 @@ public class SysUserController {
     @ApiResponse(responseCode = "2000", description = "服务繁忙请稍后重试")
     @ApiResponse(responseCode = "3101", description = "⽤⼾不存在")
     public R<Void> delete(@PathVariable Long userId) {
-        return null;
+     return null;
     }
 
 }
