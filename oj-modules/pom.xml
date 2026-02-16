@@ -37,5 +37,10 @@
             <artifactId>oj-common-swagger</artifactId>
             <version>${oj-common-swagger.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oj-common-security</artifactId>
+            <version>${oj-common-security.version}</version>
+        </dependency>
     </dependencies>
 </project>
