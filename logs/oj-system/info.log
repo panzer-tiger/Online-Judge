@@ -1,0 +1,161 @@
+14:46:48.502 [main] INFO  c.o.s.OjSystemApplication - [logStartupProfileInfo,630] - No active profile set, falling back to 1 default profile: "default"
+14:46:49.361 [main] INFO  o.s.c.c.s.GenericScope - [setSerializationId,282] - BeanFactory id=9b614822-1239-3b23-a518-9172947f21dc
+14:46:49.847 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,108] - Tomcat initialized with port(s): 9202 (http)
+14:46:49.848 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - An older version [1.2.39] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+14:46:49.848 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - Loaded Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+14:46:49.875 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+14:46:49.883 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-9202"]
+14:46:49.883 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+14:46:49.883 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.4]
+14:46:50.003 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+14:46:50.003 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - [prepareWebApplicationContext,291] - Root WebApplicationContext: initialization completed in 1487 ms
+14:46:52.907 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+14:46:52.929 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-9202"]
+14:46:52.951 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [start,220] - Tomcat started on port(s): 9202 (http) with context path ''
+14:46:54.419 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+14:46:54.425 [main] INFO  c.o.s.OjSystemApplication - [logStarted,57] - Started OjSystemApplication in 9.273 seconds (process running for 9.771)
+14:47:05.057 [http-nio-9202-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+14:47:05.058 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,532] - Initializing Servlet 'dispatcherServlet'
+14:47:05.059 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,554] - Completed initialization in 1 ms
+14:47:05.085 [http-nio-9202-exec-1] INFO  c.o.s.t.c.TestController - [log,24] - 你好info
+18:30:46.984 [main] INFO  c.o.s.OjSystemApplication - [logStartupProfileInfo,630] - No active profile set, falling back to 1 default profile: "default"
+18:30:47.879 [main] INFO  o.s.c.c.s.GenericScope - [setSerializationId,282] - BeanFactory id=9b614822-1239-3b23-a518-9172947f21dc
+18:30:48.455 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,108] - Tomcat initialized with port(s): 9202 (http)
+18:30:48.457 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - An older version [1.2.39] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+18:30:48.458 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - Loaded Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+18:30:48.462 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+18:30:48.480 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-9202"]
+18:30:48.483 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+18:30:48.484 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.4]
+18:30:48.675 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+18:30:48.675 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - [prepareWebApplicationContext,291] - Root WebApplicationContext: initialization completed in 1679 ms
+18:30:51.664 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:30:51.676 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-9202"]
+18:30:51.694 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [start,220] - Tomcat started on port(s): 9202 (http) with context path ''
+18:30:53.085 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:30:53.091 [main] INFO  c.o.s.OjSystemApplication - [logStarted,57] - Started OjSystemApplication in 9.498 seconds (process running for 10.05)
+18:31:33.314 [http-nio-9202-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+18:31:33.315 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,532] - Initializing Servlet 'dispatcherServlet'
+18:31:33.316 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,554] - Completed initialization in 1 ms
+18:31:33.415 [http-nio-9202-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+18:32:13.657 [main] INFO  c.o.s.OjSystemApplication - [logStartupProfileInfo,630] - No active profile set, falling back to 1 default profile: "default"
+18:32:14.470 [main] INFO  o.s.c.c.s.GenericScope - [setSerializationId,282] - BeanFactory id=9b614822-1239-3b23-a518-9172947f21dc
+18:32:14.936 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,108] - Tomcat initialized with port(s): 9202 (http)
+18:32:14.937 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - An older version [1.2.39] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+18:32:14.937 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - Loaded Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+18:32:14.941 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+18:32:14.955 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-9202"]
+18:32:14.956 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+18:32:14.956 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.4]
+18:32:15.099 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+18:32:15.099 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - [prepareWebApplicationContext,291] - Root WebApplicationContext: initialization completed in 1428 ms
+18:32:18.047 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:32:18.057 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-9202"]
+18:32:18.072 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [start,220] - Tomcat started on port(s): 9202 (http) with context path ''
+18:32:19.480 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:32:19.485 [main] INFO  c.o.s.OjSystemApplication - [logStarted,57] - Started OjSystemApplication in 9.354 seconds (process running for 9.821)
+18:32:24.040 [http-nio-9202-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+18:32:24.040 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,532] - Initializing Servlet 'dispatcherServlet'
+18:32:24.041 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,554] - Completed initialization in 1 ms
+18:32:24.116 [http-nio-9202-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+18:32:24.419 [http-nio-9202-exec-1] INFO  c.z.h.p.HikariPool - [checkFailFast,565] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@219936c
+18:32:24.421 [http-nio-9202-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+18:32:32.341 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+18:32:32.345 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+18:58:10.036 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,87] - [settings] [req-serv] nacos-server port:8848
+18:58:10.036 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,98] - [settings] [http-client] connect timeout:1000
+18:58:10.038 [main] INFO  c.a.n.c.u.ParamUtil - [<clinit>,105] - PER_TASK_CONFIG_SIZE: 3000.0
+18:58:10.123 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+18:58:10.123 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+18:58:10.126 [main] INFO  c.a.n.c.a.r.i.CredentialWatcher - [loadCredential,165] - null No credential found
+18:58:11.621 [main] INFO  c.a.n.c.c.i.LocalConfigInfoProcessor - [<clinit>,63] - LOCAL_SNAPSHOT_PATH:C:\Users\爸爸的computer\nacos\config
+18:58:11.623 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,108] - [RpcClientFactory] create a new rpc client of 8c312f67-2bff-4805-a430-0640591b3cd1_config-0
+18:58:11.653 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$520/0x00000130112a9c90
+18:58:11.655 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Register server push request handler:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$$Lambda$521/0x00000130112aa0b0
+18:58:11.656 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Registry connection listener to current client:com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$1
+18:58:11.656 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] RpcClient init, ServerListFactory = com.alibaba.nacos.client.config.impl.ClientWorker$ConfigRpcTransportClient$2
+18:58:11.663 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Try to connect to server on start up, server: {serverIp = 'localhost', server main port = 8848}
+18:58:11.688 [main] INFO  c.a.n.c.r.c.g.GrpcClient - [createNewManagedChannel,182] - grpc client connection server:localhost ip,serverPort:9848,grpcTslConfig:{"sslProvider":"OPENSSL","enableTls":false,"mutualAuthEnable":false,"trustAll":false}
+18:58:12.674 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Success to connect to server [localhost:8848] on start up, connectionId = 1771239492481_172.17.0.1_51868
+18:58:12.674 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Notify connected event to listeners.
+18:58:12.674 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.c.i.ClientWorker - [onConnected,639] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Connected,notify listen context...
+18:58:12.674 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+18:58:12.674 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [8c312f67-2bff-4805-a430-0640591b3cd1_config-0] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$543/0x00000130114311e8
+18:58:12.696 [main] INFO  c.a.n.c.c.i.Limiter - [<clinit>,62] - limitTime:5.0
+18:58:12.733 [main] INFO  c.a.n.c.c.u.JvmUtil - [<clinit>,54] - isMultiInstance:false
+18:58:12.742 [main] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - [initialize,108] - Located property source: [BootstrapPropertySource {name='bootstrapProperties-oj-system-local.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oj-system.yaml,DEFAULT_GROUP'}, BootstrapPropertySource {name='bootstrapProperties-oj-system,DEFAULT_GROUP'}]
+18:58:12.746 [main] INFO  c.o.s.OjSystemApplication - [logStartupProfileInfo,636] - The following 1 profile is active: "local"
+18:58:13.640 [main] INFO  o.s.c.c.s.GenericScope - [setSerializationId,282] - BeanFactory id=4440dfa8-f5ef-3b1f-bdb6-e4e2e6b115a7
+18:58:14.214 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,108] - Tomcat initialized with port(s): 9202 (http)
+18:58:14.215 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - An older version [1.2.39] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [2.0.1]
+18:58:14.215 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - Loaded Apache Tomcat Native library [1.2.39] using APR version [1.7.4].
+18:58:14.219 [main] INFO  o.a.c.c.AprLifecycleListener - [log,173] - OpenSSL successfully initialized [OpenSSL 3.0.11 19 Sep 2023]
+18:58:14.228 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-9202"]
+18:58:14.229 [main] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+18:58:14.229 [main] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.4]
+18:58:14.304 [main] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+18:58:14.305 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - [prepareWebApplicationContext,291] - Root WebApplicationContext: initialization completed in 1549 ms
+18:58:17.111 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:58:19.054 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:58:19.066 [main] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-9202"]
+18:58:19.084 [main] INFO  o.s.b.w.e.t.TomcatWebServer - [start,220] - Tomcat started on port(s): 9202 (http) with context path ''
+18:58:19.094 [main] INFO  c.a.n.client.naming - [initNamespaceForNaming,62] - initializer namespace from ans.namespace attribute : null
+18:58:19.095 [main] INFO  c.a.n.client.naming - [lambda$initNamespaceForNaming$0,66] - initializer namespace from ALIBABA_ALIWARE_NAMESPACE attribute :null
+18:58:19.096 [main] INFO  c.a.n.client.naming - [lambda$initNamespaceForNaming$1,73] - initializer namespace from namespace attribute :null
+18:58:19.104 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+18:58:19.104 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [init,56] - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+18:58:19.106 [main] INFO  c.a.n.c.r.client - [lambda$createClient$0,108] - [RpcClientFactory] create a new rpc client of 17434ea9-7fed-4ef6-b366-9d4358e44c04
+18:58:19.107 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+18:58:19.107 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+18:58:19.108 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+18:58:19.108 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Try to connect to server on start up, server: {serverIp = 'localhost', server main port = 8848}
+18:58:19.108 [main] INFO  c.a.n.c.r.c.g.GrpcClient - [createNewManagedChannel,182] - grpc client connection server:localhost ip,serverPort:9848,grpcTslConfig:{"sslProvider":"OPENSSL","enableTls":false,"mutualAuthEnable":false,"trustAll":false}
+18:58:19.226 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Success to connect to server [localhost:8848] on start up, connectionId = 1771239499010_172.17.0.1_51880
+18:58:19.227 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+18:58:19.227 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Notify connected event to listeners.
+18:58:19.227 [main] INFO  c.a.n.c.r.client - [printIfInfoEnabled,63] - [17434ea9-7fed-4ef6-b366-9d4358e44c04] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$543/0x00000130114311e8
+18:58:19.227 [com.alibaba.nacos.client.remote.worker] INFO  c.a.n.client.naming - [onConnected,78] - Grpc connection connect
+18:58:19.228 [main] INFO  c.a.n.client.naming - [registerService,121] - [REGISTER-SERVICE] 6229ec57-34ae-49d1-b268-4c97d9d1f1e9 registering service oj-system with instance Instance{instanceId='null', ip='192.168.187.1', port=9202, weight=1.0, healthy=true, enabled=true, ephemeral=true, clusterName='DEFAULT', serviceName='null', metadata={IPv6=null, preserved.register.source=SPRING_CLOUD}}
+18:58:19.244 [main] INFO  c.a.c.n.r.NacosServiceRegistry - [register,76] - nacos registry, DEFAULT_GROUP oj-system 192.168.187.1:9202 register finished
+18:58:20.630 [main] INFO  o.s.c.c.u.InetUtils - [convertAddress,170] - Cannot determine local hostname
+18:58:20.636 [main] INFO  c.o.s.OjSystemApplication - [logStarted,57] - Started OjSystemApplication in 12.629 seconds (process running for 13.131)
+18:58:20.638 [main] INFO  c.a.n.c.c.i.CacheData - [<clinit>,67] - nacos.cache.data.init.snapshot = true 
+18:58:20.640 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,380] - [fixed-6229ec57-34ae-49d1-b268-4c97d9d1f1e9-localhost_8848] [subscribe] oj-system-local.yaml+DEFAULT_GROUP+6229ec57-34ae-49d1-b268-4c97d9d1f1e9
+18:58:20.644 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-6229ec57-34ae-49d1-b268-4c97d9d1f1e9-localhost_8848] [add-listener] ok, tenant=6229ec57-34ae-49d1-b268-4c97d9d1f1e9, dataId=oj-system-local.yaml, group=DEFAULT_GROUP, cnt=1
+18:58:20.644 [main] INFO  c.a.c.n.r.NacosContextRefresher - [registerNacosListener,129] - [Nacos Config] Listening config: dataId=oj-system-local.yaml, group=DEFAULT_GROUP
+18:58:20.645 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,380] - [fixed-6229ec57-34ae-49d1-b268-4c97d9d1f1e9-localhost_8848] [subscribe] oj-system+DEFAULT_GROUP+6229ec57-34ae-49d1-b268-4c97d9d1f1e9
+18:58:20.645 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-6229ec57-34ae-49d1-b268-4c97d9d1f1e9-localhost_8848] [add-listener] ok, tenant=6229ec57-34ae-49d1-b268-4c97d9d1f1e9, dataId=oj-system, group=DEFAULT_GROUP, cnt=1
+18:58:20.645 [main] INFO  c.a.c.n.r.NacosContextRefresher - [registerNacosListener,129] - [Nacos Config] Listening config: dataId=oj-system, group=DEFAULT_GROUP
+18:58:20.646 [main] INFO  c.a.n.c.c.i.ClientWorker - [addCacheDataIfAbsent,380] - [fixed-6229ec57-34ae-49d1-b268-4c97d9d1f1e9-localhost_8848] [subscribe] oj-system.yaml+DEFAULT_GROUP+6229ec57-34ae-49d1-b268-4c97d9d1f1e9
+18:58:20.646 [main] INFO  c.a.n.c.c.i.CacheData - [addListener,197] - [fixed-6229ec57-34ae-49d1-b268-4c97d9d1f1e9-localhost_8848] [add-listener] ok, tenant=6229ec57-34ae-49d1-b268-4c97d9d1f1e9, dataId=oj-system.yaml, group=DEFAULT_GROUP, cnt=1
+18:58:20.646 [main] INFO  c.a.c.n.r.NacosContextRefresher - [registerNacosListener,129] - [Nacos Config] Listening config: dataId=oj-system.yaml, group=DEFAULT_GROUP
+18:58:41.606 [http-nio-9202-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+18:58:41.606 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,532] - Initializing Servlet 'dispatcherServlet'
+18:58:41.607 [http-nio-9202-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,554] - Completed initialization in 0 ms
+18:58:41.688 [http-nio-9202-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+18:58:41.953 [http-nio-9202-exec-1] INFO  c.z.h.p.HikariPool - [checkFailFast,565] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1a1b9465
+18:58:41.954 [http-nio-9202-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+18:58:59.758 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,95] - De-registering from Nacos Server now...
+18:58:59.759 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [deregisterService,217] - [DEREGISTER-SERVICE] 6229ec57-34ae-49d1-b268-4c97d9d1f1e9 deregistering service oj-system with instance: Instance{instanceId='null', ip='192.168.187.1', port=9202, weight=1.0, healthy=true, enabled=true, ephemeral=true, clusterName='DEFAULT', serviceName='null', metadata={}}
+18:58:59.766 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - [deregister,115] - De-registration finished.
+18:58:59.766 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,256] - com.alibaba.nacos.client.naming.cache.ServiceInfoHolder do shutdown begin
+18:58:59.766 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,136] - com.alibaba.nacos.client.naming.backups.FailoverReactor do shutdown begin
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,138] - com.alibaba.nacos.client.naming.backups.FailoverReactor do shutdown stop
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,258] - com.alibaba.nacos.client.naming.cache.ServiceInfoHolder do shutdown stop
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,204] - com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate do shutdown begin
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,143] - com.alibaba.nacos.client.naming.core.ServiceInfoUpdateService do shutdown begin
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,145] - com.alibaba.nacos.client.naming.core.ServiceInfoUpdateService do shutdown stop
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,194] - com.alibaba.nacos.client.naming.core.ServerListManager do shutdown begin
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,199] - com.alibaba.nacos.client.naming.core.ServerListManager do shutdown stop
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,484] - com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy do shutdown begin
+18:58:59.767 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,486] - com.alibaba.nacos.client.naming.remote.http.NamingHttpClientProxy do shutdown stop
+18:58:59.768 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,429] - Shutdown rpc client, set status to shutdown
+18:58:59.768 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [shutdown,431] - Shutdown client event executor java.util.concurrent.ScheduledThreadPoolExecutor@583e1246[Running, pool size = 2, active threads = 2, queued tasks = 0, completed tasks = 0]
+18:58:59.768 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.client - [closeConnection,584] - Close current connection 1771239499010_172.17.0.1_51880
+18:58:59.770 [SpringApplicationShutdownHook] INFO  c.a.n.c.r.c.g.GrpcClient - [shutdown,159] - Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@343d9f03[Running, pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 17]
+18:58:59.770 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,318] - Shutdown grpc redo service executor java.util.concurrent.ScheduledThreadPoolExecutor@48bb311b[Running, pool size = 1, active threads = 0, queued tasks = 1, completed tasks = 13]
+18:58:59.771 [SpringApplicationShutdownHook] INFO  c.a.n.c.a.r.i.CredentialWatcher - [stop,106] - [null] CredentialWatcher is stopped
+18:58:59.771 [SpringApplicationShutdownHook] INFO  c.a.n.c.a.r.i.CredentialService - [free,100] - [null] CredentialService is freed
+18:58:59.771 [SpringApplicationShutdownHook] INFO  c.a.n.client.naming - [shutdown,211] - com.alibaba.nacos.client.naming.remote.NamingClientProxyDelegate do shutdown stop
+18:58:59.772 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+18:58:59.778 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
