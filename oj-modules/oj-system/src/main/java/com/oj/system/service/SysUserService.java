@@ -5,5 +5,5 @@ import com.oj.system.domain.LoginDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public interface SysUserService {
-    R<Void> login(@RequestBody LoginDTO loginDTO);
+    R<String> login(@RequestBody LoginDTO loginDTO);
 }

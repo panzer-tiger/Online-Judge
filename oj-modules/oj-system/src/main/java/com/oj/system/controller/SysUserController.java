@@ -32,7 +32,7 @@ public class SysUserController {
     @ApiResponse(responseCode = "3103", description = "账号或密码错误")
     @ApiResponse(responseCode = "1000", description = "操作成功")
     @ApiResponse(responseCode = "2000", description = "服务繁忙请稍后重试")
-    public R<Void> login(@RequestBody LoginDTO loginDTO) {
+    public R<String> login(@RequestBody LoginDTO loginDTO) {
         return sysUserService.login(loginDTO);
     }
 
