@@ -26,6 +26,13 @@
              <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oj-common-swagger</artifactId>
+            <version>${oj-common-swagger.version}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
