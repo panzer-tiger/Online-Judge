@@ -1,4 +1,4 @@
-package oj.common.security;
+package oj.common.security.handle;
 
 import com.oj.common.core.domain.R;
 import com.oj.common.core.enums.ResultCode;
