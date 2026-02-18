@@ -6,6 +6,7 @@
     <modules>
         <module>oj-modules</module>
         <module>oj-common</module>
+        <module>oj-gateway</module>
 
     </modules>
 
@@ -34,6 +35,11 @@
         <oj-common-swagger.version>1.0-SNAPSHOT</oj-common-swagger.version>
         <springdoc-openapi.version>2.2.0</springdoc-openapi.version>
         <oj-common-security.version>1.0-SNAPSHOT</oj-common-security.version>
+        <fastjson2.version>2.0.43</fastjson2.version>
+        <oj-common-redis.version>1.0-SNAPSHOT</oj-common-redis.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
+        <hutool-all.version>5.8.22</hutool-all.version>
     </properties>
 
     <dependencies>

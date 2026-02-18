@@ -1,5 +1,6 @@
 package com.oj.system.test.controller;
 
+import com.oj.common.redis.service.RedisService;
 import com.oj.system.test.service.TestServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import java.util.List;
 public class TestController {
     @Autowired
     private TestServiceImpl testService;
-
+    @Autowired
+    private RedisService redisService;
     @GetMapping("/list")
     public List<?> list(){
         return testService.list();
@@ -24,5 +26,11 @@ public class TestController {
         log.info("你好info");
         log.error("你好error");
         return "我是日志";
+    }
+    @GetMapping("/redis")
+    public  String redis(){
+        redisService.setCacheObject("key1",1);
+        String ret= redisService.getCacheObject("key1",String.class);
+        return ret;
     }
 }
