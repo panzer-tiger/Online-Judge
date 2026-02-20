@@ -169,6 +169,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
+        //这个值越小,过滤器执行顺序就越高
         return -200;
     }
 }
