@@ -4,6 +4,7 @@ import com.oj.common.core.domain.R;
 import com.oj.common.core.enums.ResultCode;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import oj.common.security.exception.ServiceException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,13 +29,21 @@ public class GlobalExceptionHandler {
      * 拦截运⾏时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public R<?> handleRuntimeException(RuntimeException e, HttpServletRequest
-            request) {
+    public R<?> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发⽣运行时异常.", requestURI, e);
         return R.fail(ResultCode.ERROR);
     }
-
+    /**
+     * 拦截业务处理时产生的异常
+     * */
+    @ExceptionHandler(ServiceException.class)
+    public R<?> handleServiceException(ServiceException e,HttpServletRequest request){
+        String requestURI = request.getRequestURI();
+        ResultCode resultCode = e.getResultCode();
+        log.error("请求地址'{}',业务发⽣异常{}.",requestURI,resultCode.getMsg());
+        return R.fail(resultCode);
+    }
     /**
      * 系统异常
      */
