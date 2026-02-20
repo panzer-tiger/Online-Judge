@@ -1,5 +1,6 @@
 package com.oj.system.controller;
 
+import com.oj.common.core.controller.BaseController;
 import com.oj.common.core.domain.R;
 import com.oj.common.core.enums.ResultCode;
 import com.oj.system.domain.LoginDTO;
@@ -20,7 +21,7 @@ import org.springframework.web.service.annotation.DeleteExchange;
 @Tag(name = "管理员后台系统")
 @RestController
 @RequestMapping("/sysUser")
-public class SysUserController {
+public class SysUserController extends BaseController {
     @Autowired
     private SysUserService sysUserService;
 
@@ -43,7 +44,7 @@ public class SysUserController {
     @ApiResponse(responseCode = "2000", description = "服务繁忙请稍后重试")
     @ApiResponse(responseCode = "3101", description = "⽤⼾已存在")
     public R<Void> add(@RequestBody SysUserSaveDTO saveDTO) {
-        return null;
+        return toR(sysUserService.add(saveDTO));
     }
 
     @GetMapping("/detail")
@@ -61,8 +62,7 @@ public class SysUserController {
 
     @DeleteMapping("/{userId}")
     @Operation(summary = "删除⽤⼾", description = "通过⽤⼾id删除⽤⼾")
-    @Parameters(value = {
-            @Parameter(name = "userId", in = ParameterIn.PATH, description = "⽤⼾ID")})
+    @Parameters(value = {@Parameter(name = "userId", in = ParameterIn.PATH, description = "⽤⼾ID")})
     @ApiResponse(responseCode = "1000", description = "成功删除⽤⼾")
     @ApiResponse(responseCode = "2000", description = "服务繁忙请稍后重试")
     @ApiResponse(responseCode = "3101", description = "⽤⼾不存在")

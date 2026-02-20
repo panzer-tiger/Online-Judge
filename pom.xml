@@ -40,6 +40,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
         <hutool-all.version>5.8.22</hutool-all.version>
+        <oj-common-mybatis.version>1.0-SNAPSHOT</oj-common-mybatis.version>
     </properties>
 
     <dependencies>
