@@ -10,4 +10,8 @@ public class CacheConstants {
      * ⽤⼾⾝份认证缓存前缀
      */
     public final static String LOGIN_TOKEN_KEY = "login_tokens:";
+    /**
+     * 用户token的延长时间的值,低于这个值token需要延长
+     * */
+    public static final long REFRESH = 180;
 }
