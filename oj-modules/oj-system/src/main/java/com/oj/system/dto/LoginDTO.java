@@ -1,4 +1,4 @@
-package com.oj.system.domain;
+package com.oj.system.dto;
 
 import lombok.Getter;
 import lombok.Setter;

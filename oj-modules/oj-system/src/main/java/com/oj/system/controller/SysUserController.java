@@ -2,11 +2,9 @@ package com.oj.system.controller;
 
 import com.oj.common.core.controller.BaseController;
 import com.oj.common.core.domain.R;
-import com.oj.common.core.enums.ResultCode;
-import com.oj.system.domain.LoginDTO;
-import com.oj.system.domain.SysUser;
-import com.oj.system.domain.SysUserSaveDTO;
-import com.oj.system.domain.SysUserVO;
+import com.oj.system.dto.LoginDTO;
+import com.oj.system.dto.SysUserSaveDTO;
+import com.oj.system.vo.SysUserVO;
 import com.oj.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,7 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.DeleteExchange;
 
 @Tag(name = "管理员后台系统")
 @RestController
