@@ -1,10 +1,12 @@
-package com.oj.system.controller;
+package com.oj.system.controller.sysuer;
 
+import com.oj.common.core.constants.HttpConstants;
 import com.oj.common.core.controller.BaseController;
+import com.oj.common.core.domain.vo.LoginUserVO;
 import com.oj.common.core.domain.R;
-import com.oj.system.dto.LoginDTO;
-import com.oj.system.dto.SysUserSaveDTO;
-import com.oj.system.vo.SysUserVO;
+import com.oj.system.domain.sysuser.dto.LoginDTO;
+import com.oj.system.domain.sysuser.dto.SysUserSaveDTO;
+import com.oj.system.domain.sysuser.vo.SysUserVO;
 import com.oj.system.service.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,6 +36,15 @@ public class SysUserController extends BaseController {
         return sysUserService.login(loginDTO);
     }
 
+    @DeleteMapping("/logout")
+    public R<Void> logout(@RequestHeader(HttpConstants.AUTHENTICATION)String token){
+        boolean logout = sysUserService.logout(token);
+        return toR(logout);
+    }
+    @GetMapping("/info")
+    public R<LoginUserVO> info (@RequestHeader(HttpConstants.AUTHENTICATION) String token){
+       return sysUserService.getInfo(token);
+    }
     //新增管理员方法
     @PostMapping("/add")
     @Operation(summary = "新增管理员", description = "根据提供的信息新增管理员⽤⼾")
