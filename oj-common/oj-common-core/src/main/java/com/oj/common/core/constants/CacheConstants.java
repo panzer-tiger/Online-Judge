@@ -4,7 +4,7 @@ public class CacheConstants {
     /**
      * 缓存有效期，默认720（分钟）
      */
-    public final static long EXPIRATION = 720;
+    public final static long EXPIRATION = 50;
 
     /**
      * ⽤⼾⾝份认证缓存前缀
@@ -13,5 +13,5 @@ public class CacheConstants {
     /**
      * 用户token的延长时间的值,低于这个值token需要延长
      * */
-    public static final long REFRESH = 180;
+    public static final long REFRESH = 4;
 }
