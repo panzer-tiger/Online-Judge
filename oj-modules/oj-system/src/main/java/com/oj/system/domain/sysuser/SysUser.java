@@ -1,9 +1,10 @@
-package com.oj.system.domain;
+package com.oj.system.domain.sysuser;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.oj.common.core.domain.BaseEntity;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +21,6 @@ public class SysUser extends BaseEntity {
 
     private String password;
 
+    private String nickName;
 
 }
