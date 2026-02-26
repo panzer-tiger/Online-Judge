@@ -138,11 +138,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
      * 从请求头中获取请求token
      */
     private String getToken(ServerHttpRequest request) {
-        String token =
-                request.getHeaders().getFirst(HttpConstants.AUTHENTICATION);
+        String token = request.getHeaders().getFirst(HttpConstants.AUTHENTICATION);
         // 如果前端设置了令牌前缀，则裁剪掉前缀
-        if (StrUtil.isNotEmpty(token) &&
-                token.startsWith(HttpConstants.PREFIX)) {
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
             token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
         }
         return token;
@@ -156,8 +154,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     }
 
     //拼装webflux模型响应
-    private Mono<Void> webFluxResponseWriter(ServerHttpResponse response,
-                                             String msg, int code) {
+    private Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String msg, int code) {
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE,
                 MediaType.APPLICATION_JSON_VALUE);
