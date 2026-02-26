@@ -1,13 +1,17 @@
 package com.oj.system.service;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.oj.common.core.constants.HttpConstants;
+import com.oj.common.core.domain.LoginUser;
 import com.oj.common.core.domain.R;
+import com.oj.common.core.domain.vo.LoginUserVO;
 import com.oj.common.core.enums.ResultCode;
 import com.oj.common.core.enums.UserIdentity;
-import com.oj.system.dto.LoginDTO;
-import com.oj.system.domain.SysUser;
-import com.oj.system.dto.SysUserSaveDTO;
+import com.oj.system.domain.sysuser.dto.LoginDTO;
+import com.oj.system.domain.sysuser.SysUser;
+import com.oj.system.domain.sysuser.dto.SysUserSaveDTO;
 import com.oj.system.mapper.SysUserMapper;
 import com.oj.system.util.BCryptUtils;
 import oj.common.security.exception.ServiceException;
@@ -36,7 +40,7 @@ public class SysUserServiceImpl implements SysUserService {
         //将数据库查询结果序列化为SysUser对象
         SysUser sysUser = userMapper.selectOne(
                 queryWrapper
-                        .select(SysUser::getPassword,SysUser::getUserId)
+                        .select(SysUser::getPassword,SysUser::getUserId,SysUser::getNickName)
                         .eq(SysUser::getUserAccount, loginDTO.getUserAccount()));
         //返回结果的创建
         if (sysUser == null) {
@@ -45,7 +49,8 @@ public class SysUserServiceImpl implements SysUserService {
         //登录成功
         if (BCryptUtils.matchesPassword(loginDTO.getPassword(), sysUser.getPassword())) {
             //生成token
-            String token = tokenService.createToken(sysUser.getUserId(),secret, UserIdentity.ADMIN.getValue());
+            String token = tokenService.createToken(sysUser.getUserId(),secret,
+                    UserIdentity.ADMIN.getValue(),sysUser.getNickName());
             //返回token给客户端
             return R.ok(token);
         }
@@ -66,5 +71,30 @@ public class SysUserServiceImpl implements SysUserService {
         user.setUserAccount(saveDTO.getUserAccount());
         user.setPassword(BCryptUtils.encryptPassword(saveDTO.getPassword()));
         return userMapper.insert(user);
+    }
+
+    @Override
+    public R<LoginUserVO> getInfo(String token) {
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+        }
+        LoginUser loginUser = tokenService.getInfo(token, secret);
+        if(loginUser==null)
+        {
+            return R.fail();
+        }
+        //将数据转换为前端需要的格式
+        LoginUserVO loginUserVO = new LoginUserVO();
+        loginUserVO.setNickName(loginUser.getNickName());
+        return R.ok(loginUserVO);
+    }
+
+    @Override
+    public boolean logout(String token) {
+        if (StrUtil.isNotEmpty(token) && token.startsWith(HttpConstants.PREFIX)) {
+            token = token.replaceFirst(HttpConstants.PREFIX, StrUtil.EMPTY);
+        }
+        LoginUser loginUser = tokenService.getInfo(token, secret);
+        return tokenService.deleteToken(token,secret);
     }
 }
