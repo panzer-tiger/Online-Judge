@@ -1,4 +1,4 @@
-package com.oj.system.service;
+package com.oj.system.service.sysuser.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
@@ -12,7 +12,8 @@ import com.oj.common.core.enums.UserIdentity;
 import com.oj.system.domain.sysuser.dto.LoginDTO;
 import com.oj.system.domain.sysuser.SysUser;
 import com.oj.system.domain.sysuser.dto.SysUserSaveDTO;
-import com.oj.system.mapper.SysUserMapper;
+import com.oj.system.mapper.sysuser.SysUserMapper;
+import com.oj.system.service.sysuser.SysUserService;
 import com.oj.system.util.BCryptUtils;
 import oj.common.security.exception.ServiceException;
 import oj.common.security.service.TokenService;
