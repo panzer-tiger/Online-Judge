@@ -7,7 +7,7 @@ import com.oj.common.core.domain.R;
 import com.oj.system.domain.sysuser.dto.LoginDTO;
 import com.oj.system.domain.sysuser.dto.SysUserSaveDTO;
 import com.oj.system.domain.sysuser.vo.SysUserVO;
-import com.oj.system.service.SysUserService;
+import com.oj.system.service.sysuser.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
