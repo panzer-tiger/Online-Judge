@@ -2,8 +2,10 @@ package com.oj.system.service.question.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
+import com.oj.common.core.constants.Constants;
 import com.oj.common.core.enums.ResultCode;
 import com.oj.system.domain.question.Question;
 import com.oj.system.domain.question.dto.QuestionAddDTO;
@@ -17,16 +19,32 @@ import oj.common.security.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
     QuestionMapper questionMapper;
     @Override
     public List<QuestionVO> list(QuestionQueryDTO questionQueryDTO) {
+        String excludeIdStr = questionQueryDTO.getExcludeIdStr();
+        //当参数中有需要排除的题目id时进行if操作
+        if(StrUtil.isNotEmpty(excludeIdStr)){
+            String[] excludeIdArr = excludeIdStr.split(Constants.SPLIT_SEM);
+            //将字符串中的数据提取到set中
+            Set<Long> excludeIdSet = Arrays.stream(excludeIdArr)
+                    .map(Long::valueOf)
+                    .collect(Collectors.toSet());
+            //将questionQueryDTO的题目id集合进行赋值
+            questionQueryDTO.setExcludeIdSet(excludeIdSet);
+        }
         //将查询到的数据存放到列表
         //pageHelper的自动查询分页功能
         PageHelper.startPage(questionQueryDTO.getPageNum(),questionQueryDTO.getPageSize());
+        //根据questionQueryDTO进行数据库查询
         List<QuestionVO> questionVO = questionMapper.selectQuestionList(questionQueryDTO);
         return questionVO;
     }
