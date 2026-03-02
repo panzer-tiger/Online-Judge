@@ -1,6 +1,7 @@
 package com.oj.system.test.domin;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import jakarta.validation.constraints.NotNull;
 
 @TableName("tb_test")
 public class Test {
