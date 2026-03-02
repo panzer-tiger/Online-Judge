@@ -10,4 +10,6 @@ public class PageQuery {
     private Integer pageSize=10; // 一页展示多少数据
 
     private Integer pageNum=1; // 需要查询第几页的数据
+
+
 }
