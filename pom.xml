@@ -43,6 +43,7 @@
         <oj-common-mybatis.version>1.0-SNAPSHOT</oj-common-mybatis.version>
         <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
         <oj-common-message.version>1.0-SNAPSHOT</oj-common-message.version>
+        <xxl-job.version>2.4.0</xxl-job.version>
     </properties>
 
     <dependencies>
