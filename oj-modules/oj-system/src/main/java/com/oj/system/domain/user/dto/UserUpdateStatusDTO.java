@@ -1,18 +1,14 @@
 package com.oj.system.domain.user.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 //@Getter
 //@Setter
 //@Data
-public class UserUpdateStatus {
+public class UserUpdateStatusDTO {
     private Long userId;
     private Integer status;
 
     // 必须显式写无参构造（关键！）
-    public UserUpdateStatus() {
+    public UserUpdateStatusDTO() {
     }
 
     // 手动写getter/setter，避免Lombok生成异常
