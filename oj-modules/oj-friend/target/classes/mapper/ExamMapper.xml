@@ -13,7 +13,7 @@
         FROM
             tb_exam te
         where
-            status=0
+            status=1
             <if test="title !=null and title !='' ">
                 AND te.title LIKE CONCAT('%',#{title},'%')
             </if>
