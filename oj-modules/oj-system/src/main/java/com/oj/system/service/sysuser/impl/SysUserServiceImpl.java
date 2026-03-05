@@ -51,7 +51,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (BCryptUtils.matchesPassword(loginDTO.getPassword(), sysUser.getPassword())) {
             //生成token
             String token = tokenService.createToken(sysUser.getUserId(),secret,
-                    UserIdentity.ADMIN.getValue(),sysUser.getNickName());
+                    UserIdentity.ADMIN.getValue(),sysUser.getNickName(),null);
             //返回token给客户端
             return R.ok(token);
         }
