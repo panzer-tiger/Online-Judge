@@ -9,6 +9,6 @@ public class LoginUser {
     private String nickName;
     // 1 为普通用户 2 是管理员用户
     private Integer Identity;
-
+    private String headImage;
 
 }
