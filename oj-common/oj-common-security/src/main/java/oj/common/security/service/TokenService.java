@@ -50,7 +50,7 @@ public class TokenService {
      * @param nickName
      * @return 返回jwt创建的token
      **/
-    public String createToken(Long userId, String secret, Integer Identity, String nickName){
+    public String createToken(Long userId, String secret, Integer Identity, String nickName,String headImage){
         //创建一个map存放token中的数据
         Map<String, Object> claims = new HashMap<>();
         //创建一个uuid
@@ -69,6 +69,7 @@ public class TokenService {
         //以Identity设置value, 表示用户是否是管理员还是普通用户
         loginUser.setIdentity(Identity);
         loginUser.setNickName(nickName);
+        loginUser.setHeadImage(headImage);
         //将键值对存入redis中,并设置过期时间
         redisService.setCacheObject(key,loginUser,CacheConstants.EXPIRATION, TimeUnit.MINUTES);
         return token;
@@ -100,7 +101,7 @@ public class TokenService {
         String tokenKey = getTokenKey(userKey);
         return redisService.getCacheObject(tokenKey,LoginUser.class);
     }
-    //将用户的token从redis中删除
+    //从token中获取存在redis上的key,并将用户的token从redis中删除
     public boolean deleteToken(String token, String secret) {
         String userKey = getUserKey(token, secret);
         if (userKey==null){
