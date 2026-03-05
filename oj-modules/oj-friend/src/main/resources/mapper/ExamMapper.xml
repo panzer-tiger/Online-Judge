@@ -2,24 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oj.system.mapper.exam.ExamMapper">
+<mapper namespace="com.oj.friend.mapper.exam.ExamMapper">
 
-    <select id="selectExamList" resultType="com.oj.system.domain.exam.vo.ExamVO">
+    <select id="selectExamList" resultType="com.oj.friend.domain.exam.vo.ExamVO">
         SELECT
-        te.exam_id,
-        te.title,
-        te.start_time,
-        te.end_time,
-        te.create_time,
-        ts.nick_name as create_name,
-        te.status
+            te.exam_id,
+            te.title,
+            te.start_time,
+            te.end_time
         FROM
-        tb_exam te
-        left join
-        tb_sys_user ts
-        on
-        te.create_by = ts.user_id
-        <where>
+            tb_exam te
+        where
+            status=1
             <if test="title !=null and title !='' ">
                 AND te.title LIKE CONCAT('%',#{title},'%')
             </if>
@@ -29,7 +23,12 @@
             <if test="endTime != null and endTime != ''">
                 AND te.end_time &lt;= #{endTime}
             </if>
-        </where>
+            <if test="type == 0">
+                And te.end_time > NOW()
+            </if>
+            <if test="type == 1">
+                And te.end_time &lt;= NOW()
+            </if>
         ORDER BY
         te.create_time DESC
     </select>
