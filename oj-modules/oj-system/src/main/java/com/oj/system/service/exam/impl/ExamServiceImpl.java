@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
+import com.oj.common.core.constants.Constants;
 import com.oj.common.core.domain.TableDataInfo;
 import com.oj.common.core.enums.ResultCode;
 import com.oj.system.domain.exam.Exam;
@@ -51,8 +52,8 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper,ExamQuestion> i
     public String add(ExamAddDTO examAddDTO) {
         checkParams(examAddDTO,null);
         Exam exam = new Exam();
-        checkExamStart(exam);
         BeanUtil.copyProperties(examAddDTO,exam);
+        checkExamStart(exam);
          examMapper.insert(exam);
          //返回新创建的examId
         return exam.getExamId().toString();
@@ -96,7 +97,7 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper,ExamQuestion> i
         List<Long> questionIds = examQuestions.stream().map(ExamQuestion::getQuestionId).collect(Collectors.toList());
         //根据题目id将所有查询到的题目信息存入questions中
         List<Question> questions = questionMapper.selectList(new LambdaQueryWrapper<Question>().
-                select(Question::getTitle,Question::getTitle,Question::getDifficulty)
+                select(Question::getTitle,Question::getQuestionId,Question::getDifficulty)
                 .in(Question::getQuestionId,questionIds));
         //将题目完整的信息转化为前端需要展示的信息返回
         List<QuestionVO> questionVOList=BeanUtil.copyToList(questions,QuestionVO.class);
@@ -123,6 +124,36 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper,ExamQuestion> i
         return examQuestMapper.delete(new LambdaQueryWrapper<ExamQuestion>()
                 .eq(ExamQuestion::getQuestionId,questionId)
                 .eq(ExamQuestion::getExamId,examId));
+    }
+
+    @Override
+    public int examDelete(Long examId) {
+        Exam exam = getExam(examId);
+        checkExamStart(exam);
+        examQuestMapper.delete(new LambdaQueryWrapper<ExamQuestion>().
+                eq(ExamQuestion::getExamId,examId));
+        return examMapper.deleteById(examId);
+    }
+
+    @Override
+    public int publish(Long examId) {
+        Exam exam = getExam(examId);
+        checkExamStart(exam);
+        Long count = examQuestMapper.selectCount(new LambdaQueryWrapper<ExamQuestion>()
+                .eq(ExamQuestion::getExamId, examId));
+        if(count==null||count<=0){
+            throw new ServiceException(ResultCode.EXAM_NOT_HAS_QUESTION);
+        }
+        exam.setStatus(Constants.TRUE);
+        return examMapper.updateById(exam);
+    }
+
+    @Override
+    public int cancelPublish(Long examId) {
+        Exam exam = getExam(examId);
+        checkExamStart(exam);
+        exam.setStatus(Constants.FALSE);
+        return examMapper.updateById(exam);
     }
 
     private void checkParams(ExamAddDTO examAddDTO,Long examId) {
