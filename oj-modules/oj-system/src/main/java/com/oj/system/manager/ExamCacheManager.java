@@ -1,0 +1,33 @@
+package com.oj.system.manager;
+
+import com.oj.common.core.constants.CacheConstants;
+import com.oj.common.redis.service.RedisService;
+import com.oj.system.domain.exam.Exam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ExamCacheManager {
+
+    @Autowired
+    private RedisService redisService;
+
+    public void addCache(Exam exam) {
+        redisService.leftPushForList(getExamListKey(), exam.getExamId());
+        redisService.setCacheObject(getDetailKey(exam.getExamId()), exam);
+    }
+
+    public void deleteCache(Long examId) {
+        redisService.removeForList(getExamListKey(), examId);
+        redisService.deleteObject(getDetailKey(examId));
+    }
+
+    private String getExamListKey() {
+        return CacheConstants.EXAM_UNFINISHED_LIST;
+    }
+
+    private String getDetailKey(Long examId) {
+        return CacheConstants.EXAM_DETAIL + examId;
+    }
+
+}
