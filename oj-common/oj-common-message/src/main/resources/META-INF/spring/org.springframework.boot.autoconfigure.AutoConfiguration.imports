@@ -1,0 +1,2 @@
+com.oj.common.message.service.AliSmsService
+com.oj.common.message.config.AliSmsConfig
