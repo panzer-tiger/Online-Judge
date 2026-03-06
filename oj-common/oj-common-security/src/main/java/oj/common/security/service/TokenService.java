@@ -35,6 +35,21 @@ public class TokenService {
         //获取到token中的userKey
         return  JwtUtils.getUserKey(claims);
     }
+    public Long getUserId(String token,String secret){
+        Claims claims;
+        try {
+            claims = JwtUtils.parseToken(token, secret); //获取令牌中信息 解析payload中信息
+            if (claims == null) {
+                log.error("处理token:{}出错",token);
+                return null;
+            }
+        } catch (Exception e) {
+            log.error("处理token:{}出错", token,e);
+            return null;
+        }
+        //获取到token中的userKey
+        return  Long.valueOf(JwtUtils.getUserId(claims)) ;
+    }
     //将获取到的token中的信息做一个拼装后,在redis中作为key查询对应的值,值为用户信息
     private String getTokenKey(String userKey){
         return CacheConstants.LOGIN_TOKEN_KEY+userKey;
