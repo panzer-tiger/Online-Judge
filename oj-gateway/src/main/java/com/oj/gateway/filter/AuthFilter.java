@@ -2,6 +2,7 @@ package com.oj.gateway.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
+import com.oj.common.core.constants.Constants;
 import com.oj.common.core.utils.JwtUtils;
 import com.oj.common.core.constants.CacheConstants;
 import com.oj.common.core.constants.HttpConstants;
@@ -9,6 +10,7 @@ import com.oj.common.core.domain.LoginUser;
 import com.oj.common.core.domain.R;
 import com.oj.common.core.enums.ResultCode;
 import com.oj.common.core.enums.UserIdentity;
+import com.oj.common.core.utils.ThreadLocalUtil;
 import com.oj.common.redis.service.RedisService;
 import com.oj.gateway.property.IgnoreWhiteProperties;
 import io.jsonwebtoken.Claims;
@@ -79,6 +81,8 @@ public class AuthFilter implements GlobalFilter, Ordered {
         if (StrUtil.isEmpty(userId)) {
             return unauthorizedResponse(exchange, "令牌验证失败");
         }
+        //
+
         //在redis中查找token对应的值是否一致
         LoginUser user = redisService.getCacheObject(getTokenKey(userKey), LoginUser.class);
         if (/*判断用户是否是从管理员接口发送的请求 */url.contains(HttpConstants.SYSTEM_URL_PREFIX) &&
