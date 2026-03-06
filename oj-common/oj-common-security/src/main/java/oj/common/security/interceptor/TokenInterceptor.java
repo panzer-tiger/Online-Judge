@@ -1,7 +1,9 @@
 package oj.common.security.interceptor;
 
 import cn.hutool.core.util.StrUtil;
+import com.oj.common.core.constants.Constants;
 import com.oj.common.core.constants.HttpConstants;
+import com.oj.common.core.utils.ThreadLocalUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,9 +25,17 @@ public class TokenInterceptor implements HandlerInterceptor {
     //在用户进行操作前检查token的过期时间
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token=getToken(request);
+        Long userId = tokenService.getUserId(token,secret);
+        ThreadLocalUtil.set(Constants.USER_ID,userId);
         tokenService.extendToken(token,secret);
         return true;
     }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        ThreadLocalUtil.remove();
+    }
+
     //从请求头中获取token
     private String getToken(HttpServletRequest request) {
         String token = request.getHeader(HttpConstants.AUTHENTICATION);

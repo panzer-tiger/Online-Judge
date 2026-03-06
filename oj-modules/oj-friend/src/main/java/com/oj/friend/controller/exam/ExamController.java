@@ -22,4 +22,5 @@ public class ExamController extends BaseController {
     public TableDataInfo redisList(ExamQueryDTO examQueryDTO){
          return examService.redisList(examQueryDTO);
     }
+
 }
