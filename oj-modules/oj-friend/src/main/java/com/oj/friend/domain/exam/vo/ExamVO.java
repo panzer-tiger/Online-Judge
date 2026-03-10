@@ -23,4 +23,5 @@ public class ExamVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
+    private boolean enter=false;//判断当前竞赛是否已经报名过了
 }
