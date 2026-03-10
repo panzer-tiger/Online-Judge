@@ -11,8 +11,10 @@ import com.oj.system.domain.question.Question;
 import com.oj.system.domain.question.dto.QuestionAddDTO;
 import com.oj.system.domain.question.dto.QuestionEditDTO;
 import com.oj.system.domain.question.dto.QuestionQueryDTO;
+import com.oj.system.domain.question.es.QuestionES;
 import com.oj.system.domain.question.vo.QuestionDetailVO;
 import com.oj.system.domain.question.vo.QuestionVO;
+import com.oj.system.elasticsearch.QuestionRepository;
 import com.oj.system.mapper.question.QuestionMapper;
 import com.oj.system.service.question.QuestionService;
 import oj.common.security.exception.ServiceException;
@@ -27,7 +29,9 @@ import java.util.stream.Collectors;
 @Service
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
-    QuestionMapper questionMapper;
+    private QuestionMapper questionMapper;
+    @Autowired
+    private QuestionRepository questionRepository;
     @Override
     public List<QuestionVO> list(QuestionQueryDTO questionQueryDTO) {
         String excludeIdStr = questionQueryDTO.getExcludeIdStr();
@@ -50,7 +54,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public int add(QuestionAddDTO questionAddDTO) {
+    public boolean add(QuestionAddDTO questionAddDTO) {
         //将传过来的数据的标题在数据库中查找是否有一样的
         List<Question> questionList = questionMapper.selectList(new LambdaQueryWrapper<Question>()
                 .eq(Question::getTitle, questionAddDTO.getTitle()));
@@ -59,10 +63,16 @@ public class QuestionServiceImpl implements QuestionService {
             throw new ServiceException(ResultCode.FAILED_ALREADY_EXISTS);
         }
         Question question =new Question();
-        //将DTO形式转化为数据库存储鹅形式
+        //将DTO形式转化为数据库存储形式
         BeanUtil.copyProperties(questionAddDTO,question);
-
-        return questionMapper.insert(question);
+        //先将添加的数据往数据库中添加,然后再往es中添加
+        QuestionES questionES = new QuestionES();
+        int insert = questionMapper.insert(question);
+        if (insert <= 0) {
+            return false;
+        }
+        questionRepository.save(questionES);
+        return true;
     }
 
     @Override
@@ -91,6 +101,10 @@ public class QuestionServiceImpl implements QuestionService {
         oldQuestion.setQuestionCase(questionEditDTO.getQuestionCase());
         oldQuestion.setDefaultCode(questionEditDTO.getDefaultCode());
         oldQuestion.setMainFuc(questionEditDTO.getMainFuc());
+        //存入es中
+        QuestionES questionES = new QuestionES();
+        BeanUtil.copyProperties(oldQuestion, questionES);
+        questionRepository.save(questionES);
         //将新的数据存入数据库中
          return questionMapper.updateById(oldQuestion);
     }
@@ -101,6 +115,8 @@ public class QuestionServiceImpl implements QuestionService {
         if (question == null) {
             throw new ServiceException(ResultCode.FAILED_NOT_EXISTS);
         }
+        //从es中删除数据
+        questionRepository.deleteById(questionId);
         //根据id删除数据
         return questionMapper.deleteById(questionId);
     }
