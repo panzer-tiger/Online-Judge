@@ -124,4 +124,13 @@ public class TokenService {
         }
         return redisService.deleteObject(getTokenKey(userKey));
     }
+
+    public void refreshLoginUser(String nickName, String headImage, String userKey) {
+        String tokenKey = getTokenKey(userKey);
+        LoginUser loginUser = redisService.getCacheObject(tokenKey, LoginUser.class);
+        loginUser.setNickName(nickName);
+        loginUser.setHeadImage(headImage);
+        //刷新redis中的用户信息
+        redisService.setCacheObject(tokenKey, loginUser);
+    }
 }
