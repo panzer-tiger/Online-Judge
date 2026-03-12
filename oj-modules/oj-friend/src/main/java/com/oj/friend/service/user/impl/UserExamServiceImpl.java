@@ -87,6 +87,20 @@ public class UserExamServiceImpl implements UserExamService {
         if (CollectionUtil.isEmpty(examVOList)) {
             return TableDataInfo.empty();
         }
+        //将当前登录的用户所报名的竞赛的enter属性置为true,则证明为已经报名
+        assembleExamVOList(examVOList);
         return TableDataInfo.success(examVOList, total);
+    }
+
+    private void assembleExamVOList(List<ExamVO> examVOList) {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID,Long.class);
+        List<Long> userExamList = examCacheManager.getAllUserExamList(userId);
+        for(ExamVO examVO : examVOList){
+            //当用户已经参赛的列表和所有竞赛列表进行匹配
+            if(userExamList.contains(examVO.getExamId())){
+                //如果有相等的值,则证明这个比赛用户已经报名,置enter为true
+                examVO.setEnter(true);
+            }
+        }
     }
 }
