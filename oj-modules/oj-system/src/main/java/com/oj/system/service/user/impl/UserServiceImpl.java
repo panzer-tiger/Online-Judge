@@ -6,6 +6,7 @@ import com.oj.system.domain.user.User;
 import com.oj.system.domain.user.dto.UserQueryDTO;
 import com.oj.system.domain.user.dto.UserUpdateStatusDTO;
 import com.oj.system.domain.user.vo.UserVO;
+import com.oj.system.manager.UserCacheManager;
 import com.oj.system.mapper.user.UserMapper;
 import com.oj.system.service.user.UserService;
 import oj.common.security.exception.ServiceException;
@@ -18,7 +19,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private UserCacheManager userCacheManager;
     @Override
     public List<UserVO> list(UserQueryDTO userQueryDTO) {
         PageHelper.startPage(userQueryDTO.getPageNum(),userQueryDTO.getPageSize());
@@ -32,8 +34,8 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
         }
         user.setStatus(userUpdateStatusDTO.getStatus());
+        userCacheManager.updateStatus(user.getUserId(), userUpdateStatusDTO.getStatus());
         return userMapper.updateById(user);
     }
-
 
 }
