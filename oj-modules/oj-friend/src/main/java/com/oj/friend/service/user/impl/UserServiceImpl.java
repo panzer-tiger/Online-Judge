@@ -3,6 +3,7 @@ package com.oj.friend.service.user.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.oj.common.core.constants.CacheConstants;
+import com.oj.common.core.constants.Constants;
 import com.oj.common.core.constants.HttpConstants;
 import com.oj.common.core.domain.LoginUser;
 import com.oj.common.core.domain.R;
@@ -10,9 +11,13 @@ import com.oj.common.core.domain.vo.LoginUserVO;
 import com.oj.common.core.enums.ResultCode;
 import com.oj.common.core.enums.UserIdentity;
 import com.oj.common.core.enums.UserStatus;
+import com.oj.common.core.utils.ThreadLocalUtil;
 import com.oj.common.redis.service.RedisService;
 import com.oj.friend.domain.user.User;
 import com.oj.friend.domain.user.dto.UserDTO;
+import com.oj.friend.domain.user.dto.UserUpdateDTO;
+import com.oj.friend.domain.user.vo.UserVO;
+import com.oj.friend.manager.UserCacheManager;
 import com.oj.friend.mapper.user.UserMapper;
 import com.oj.friend.service.user.UserService;
 import oj.common.security.exception.ServiceException;
@@ -36,8 +41,12 @@ public class UserServiceImpl implements UserService {
     private TokenService tokenService;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private UserCacheManager userCacheManager;
     @Value("${jwt.secret}")
     private String secret;
+    @Value("${file.oss.downloadUrl}")
+    private String downloadUrl;
     //手机验证码持续时间
     private Long phoneExpire= 5l;
     //验证码发送次数
@@ -131,8 +140,72 @@ public class UserServiceImpl implements UserService {
         //将数据转换为前端需要的格式
         LoginUserVO loginUserVO = new LoginUserVO();
         loginUserVO.setNickName(loginUser.getNickName());
-        loginUserVO.setHeadImage(loginUser.getHeadImage());
+        //从oss中获取数据
+        if (StrUtil.isNotEmpty(loginUser.getHeadImage())) {
+            loginUserVO.setHeadImage(downloadUrl + loginUser.getHeadImage());
+        }
+
         return R.ok(loginUserVO);
+    }
+    @Override
+    public UserVO detail() {
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        if (userId == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+        UserVO userVO = userCacheManager.getUserById(userId);
+        if (userVO == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+        if (StrUtil.isNotEmpty(userVO.getHeadImage())) {
+            userVO.setHeadImage(downloadUrl + userVO.getHeadImage());
+        }
+        return userVO;
+    }
+
+    @Override
+    public int edit(UserUpdateDTO userUpdateDTO) {
+        User user = getUser();
+        //设置用户修改的信息
+        user.setNickName(userUpdateDTO.getNickName());
+        user.setSex(userUpdateDTO.getSex());
+        user.setSchoolName(userUpdateDTO.getSchoolName());
+        user.setMajorName(userUpdateDTO.getMajorName());
+        user.setPhone(userUpdateDTO.getPhone());
+        user.setEmail(userUpdateDTO.getEmail());
+        user.setWechat(userUpdateDTO.getWechat());
+        user.setIntroduce(userUpdateDTO.getIntroduce());
+        //更新用户缓存
+        userCacheManager.refreshUser(user);
+        tokenService.refreshLoginUser(user.getNickName(),user.getHeadImage(),
+                ThreadLocalUtil.get(Constants.USER_KEY, String.class));
+        return userMapper.updateById(user);
+    }
+
+    @Override
+    public int updateHeadImage(String headImage) {
+        User user = getUser();
+        //传入用户上传的头像
+        user.setHeadImage(headImage);
+        //更新用户缓存
+        userCacheManager.refreshUser(user);
+        tokenService.refreshLoginUser(user.getNickName(),user.getHeadImage(),
+                ThreadLocalUtil.get(Constants.USER_KEY, String.class));
+        return userMapper.updateById(user);
+    }
+
+    @NotNull
+    private User getUser() {
+        //从线程中拿出userId
+        Long userId = ThreadLocalUtil.get(Constants.USER_ID, Long.class);
+        if (userId == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new ServiceException(ResultCode.FAILED_USER_NOT_EXISTS);
+        }
+        return user;
     }
 
     private String getCodeTimeKey(UserDTO userDTO) {
