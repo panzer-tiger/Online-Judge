@@ -83,7 +83,7 @@ public class ExamCacheManager {
         int end = start + examRankDTO.getPageSize() - 1; //下标需要 -1
         return redisService.getCacheListByRange(getExamRankListKey(examRankDTO.getExamId()), start, end, ExamRankVO.class);
     }
-
+    //获取到用户所有已经报名的竞赛
     public List<Long> getAllUserExamList(Long userId) {
         String examListKey = CacheConstants.USER_EXAM_LIST + userId;
         List<Long> userExamIdList = redisService.getCacheListByRange(examListKey, 0, -1, Long.class);
@@ -96,6 +96,7 @@ public class ExamCacheManager {
             return null;
         }
         refreshCache(ExamListType.USER_EXAM_LIST.getValue(), userId);
+        //利用流转化为examId列表
         return userExamList.stream().map(UserExam::getExamId).collect(Collectors.toList());
     }
 
@@ -171,7 +172,7 @@ public class ExamCacheManager {
         }
         List<Long> examQuestionIdList = examQuestionList.stream().map(ExamQuestion::getQuestionId).toList();
         redisService.rightPushAll(getExamQuestionListKey(examId), examQuestionIdList);
-        //节省 redis缓存资源
+        //设置过期时间,节省 redis缓存资源
         long seconds = ChronoUnit.SECONDS.between(LocalDateTime.now(),
                 LocalDateTime.now().plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0));
         redisService.expire(getExamQuestionListKey(examId), seconds, TimeUnit.SECONDS);
