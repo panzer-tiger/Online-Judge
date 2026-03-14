@@ -1,7 +1,14 @@
-server:
- port: 9201
-# Spring
 spring:
  application:
-# 应⽤名称
- name: oj-judge
+  name: oj-judge
+ profiles:
+  active: local
+ cloud:
+  nacos:
+   discovery:
+    namespace: 6229ec57-34ae-49d1-b268-4c97d9d1f1e9
+    server-addr: http://localhost:8848
+   config:
+    namespace: 6229ec57-34ae-49d1-b268-4c97d9d1f1e9
+    server-addr: http://localhost:8848
+    file-extension: yaml
