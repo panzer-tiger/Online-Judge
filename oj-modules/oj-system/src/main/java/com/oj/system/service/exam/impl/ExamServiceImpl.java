@@ -107,8 +107,11 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper, ExamQuestion> 
 
     @Override
     public int examEdit(ExamEditDTO examEditDTO) {
-        checkParams(examEditDTO,examEditDTO.getExamId());
         Exam exam = getExam(examEditDTO.getExamId());
+        if (Constants.TRUE.equals(exam.getStatus())) {
+            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
+        }
+        checkParams(examEditDTO,examEditDTO.getExamId());
         checkExamStart(exam);
         //为修改的竞赛进行赋值成更新后的值
         exam.setStartTime(examEditDTO.getStartTime());
@@ -120,6 +123,9 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper, ExamQuestion> 
     @Override
     public int questionDelete(Long examId, Long questionId) {
         Exam exam = getExam(examId);
+        if (Constants.TRUE.equals(exam.getStatus())) {
+            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
+        }
         checkExamStart(exam);
         return examQuestMapper.delete(new LambdaQueryWrapper<ExamQuestion>()
                 .eq(ExamQuestion::getQuestionId,questionId)
@@ -129,6 +135,9 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper, ExamQuestion> 
     @Override
     public int examDelete(Long examId) {
         Exam exam = getExam(examId);
+        if (Constants.TRUE.equals(exam.getStatus())) {
+            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
+        }
         checkExamStart(exam);
         examQuestMapper.delete(new LambdaQueryWrapper<ExamQuestion>().
                 eq(ExamQuestion::getExamId,examId));
@@ -198,6 +207,9 @@ public class ExamServiceImpl extends ServiceImpl<ExamQuestMapper, ExamQuestion> 
 
     //向竞赛中添加题目
     private boolean addQuestion(Exam exam, Set<Long> questionIds, List<ExamQuestion> examQuestions) {
+        if (Constants.TRUE.equals(exam.getStatus())) {
+            throw new ServiceException(ResultCode.EXAM_IS_PUBLISH);
+        }
         int oder=1;
         for(Long questionId: questionIds){
             ExamQuestion examQuestion = new ExamQuestion();
