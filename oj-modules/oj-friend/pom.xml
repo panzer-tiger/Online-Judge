@@ -35,5 +35,30 @@
             <artifactId>oj-common-mybatis</artifactId>
             <version>${oj-common-mybatis.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oj-common-elasticsearch</artifactId>
+            <version>${oj-common-elasticsearch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oj-common-file</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oj-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>oj-common-rabbit</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
     </dependencies>
 </project>
