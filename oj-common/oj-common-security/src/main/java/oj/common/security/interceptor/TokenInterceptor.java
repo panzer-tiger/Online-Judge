@@ -25,9 +25,13 @@ public class TokenInterceptor implements HandlerInterceptor {
     //在用户进行操作前检查token的过期时间
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token=getToken(request);
+        if (StrUtil.isEmpty(token)) {
+            return true;
+        }
         Long userId = tokenService.getUserId(token,secret);
-        ThreadLocalUtil.set(Constants.USER_ID,userId);
-        tokenService.extendToken(token,secret);
+        String userKey = tokenService.getUserKey(token,secret);
+        ThreadLocalUtil.set(Constants.USER_ID, userId);
+        ThreadLocalUtil.set(Constants.USER_KEY, userKey);
         return true;
     }
 

@@ -22,8 +22,6 @@ public class UserExamController extends BaseController {
         return toR(userExamService.enter(token,examDTO));
     }
     //获取用户所有报名的竞赛
-    //todo 前端的已参赛,未参赛,报名无法正常显示,因为请求依然是/semiLogin/redis/list,导致enter字段始终为false
-    //
     @GetMapping("/list")
     public TableDataInfo redisList(ExamQueryDTO examQueryDTO){
         return userExamService.list(examQueryDTO);
