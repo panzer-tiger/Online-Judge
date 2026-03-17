@@ -55,11 +55,12 @@ public class MessageCacheManager {
         }
         redisService.multiSet(messageTextVOMap);
     }
-
+    //获取用户的所有消息
     public List<MessageTextVO> getMsgTextVOList(PageQuery dto, Long userId) {
         int start = (dto.getPageNum() - 1) * dto.getPageSize();
         int end = start + dto.getPageSize() - 1; //下标需要 -1
         String userMsgListKey = getUserMsgListKey(userId);
+
         List<Long> msgTextIdList = redisService.getCacheListByRange(userMsgListKey, start, end, Long.class);
         List<MessageTextVO> messageTextVOList = assembleMsgTextVOList(msgTextIdList);
         if (CollectionUtil.isEmpty(messageTextVOList)) {
@@ -76,10 +77,12 @@ public class MessageCacheManager {
             return null;
         }
         //拼接redis当中key的方法 并且将拼接好的key存储到一个list中
+        //获取消息id
         List<String> detailKeyList = new ArrayList<>();
         for (Long textId : msgTextIdList) {
             detailKeyList.add(getMsgDetailKey(textId));
         }
+        //根据用户的所有消息id查找所有消息详情
         List<MessageTextVO> messageTextVOList = redisService.multiGet(detailKeyList, MessageTextVO.class);
         CollUtil.removeNull(messageTextVOList);
         if (CollectionUtil.isEmpty(messageTextVOList) || messageTextVOList.size() != msgTextIdList.size()) {
