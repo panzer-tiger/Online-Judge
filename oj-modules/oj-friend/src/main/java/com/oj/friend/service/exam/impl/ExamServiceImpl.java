@@ -65,7 +65,9 @@ public class ExamServiceImpl implements ExamService {
         List<ExamRankVO> examRankVOList;
         if (total == null || total <= 0) {
             PageHelper.startPage(examRankDTO.getPageNum(), examRankDTO.getPageSize());
+            //从数据库中获取某一竞赛的所有用户排名成绩
             examRankVOList = userExamMapper.selectExamRankList(examRankDTO.getExamId());
+            //刷新redis中的缓存信息
             examCacheManager.refreshExamRankCache(examRankDTO.getExamId());
             total = new PageInfo<>(examRankVOList).getTotal();
         } else {
@@ -109,18 +111,20 @@ public class ExamServiceImpl implements ExamService {
         }
     }
 
-
+    //查看竞赛的排名信息的前端返回数据的组装
     private void assembleExamRankVOList(List<ExamRankVO> examRankVOList) {
         if (CollectionUtil.isEmpty(examRankVOList)) {
             return;
         }
         for (ExamRankVO examRankVO : examRankVOList) {
+            //获取所有用户成绩中的每一个用户id
             Long userId = examRankVO.getUserId();
+            //使用userid来获取用户的昵称
             UserVO user = userCacheManager.getUserById(userId);
             examRankVO.setNickName(user.getNickName());
         }
     }
-
+    //
     private void checkAndRefresh(Long examId) {
         Long listSize = examCacheManager.getExamQuestionListSize(examId);
         if (listSize == null || listSize <= 0) {
