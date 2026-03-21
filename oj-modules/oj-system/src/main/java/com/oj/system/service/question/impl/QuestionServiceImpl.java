@@ -15,6 +15,7 @@ import com.oj.system.domain.question.es.QuestionES;
 import com.oj.system.domain.question.vo.QuestionDetailVO;
 import com.oj.system.domain.question.vo.QuestionVO;
 import com.oj.system.elasticsearch.QuestionRepository;
+import com.oj.system.manager.QuestionCacheManager;
 import com.oj.system.mapper.question.QuestionMapper;
 import com.oj.system.service.question.QuestionService;
 import oj.common.security.exception.ServiceException;
@@ -32,6 +33,8 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private QuestionCacheManager questionCacheManager;
     @Override
     public List<QuestionVO> list(QuestionQueryDTO questionQueryDTO) {
         String excludeIdStr = questionQueryDTO.getExcludeIdStr();
@@ -71,7 +74,10 @@ public class QuestionServiceImpl implements QuestionService {
         if (insert <= 0) {
             return false;
         }
+        //往es中添加
         questionRepository.save(questionES);
+        //往redis中添加
+        questionCacheManager.addCache(question.getQuestionId());
         return true;
     }
 
@@ -117,6 +123,8 @@ public class QuestionServiceImpl implements QuestionService {
         }
         //从es中删除数据
         questionRepository.deleteById(questionId);
+        //从redis中也删除
+        questionCacheManager.deleteCache(questionId);
         //根据id删除数据
         return questionMapper.deleteById(questionId);
     }
