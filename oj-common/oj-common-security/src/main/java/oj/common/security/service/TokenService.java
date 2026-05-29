@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class TokenService {
     @Autowired
     private RedisService redisService;
+
     public String getUserKey(String token,String secret){
         Claims claims;
         try {

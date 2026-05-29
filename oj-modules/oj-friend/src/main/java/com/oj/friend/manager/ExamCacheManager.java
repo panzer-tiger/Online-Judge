@@ -86,10 +86,12 @@ public class ExamCacheManager {
     //获取到用户所有已经报名的竞赛
     public List<Long> getAllUserExamList(Long userId) {
         String examListKey = CacheConstants.USER_EXAM_LIST + userId;
+        //先从缓存中获取已报名竞赛信息
         List<Long> userExamIdList = redisService.getCacheListByRange(examListKey, 0, -1, Long.class);
         if (CollectionUtil.isNotEmpty(userExamIdList)) {
             return userExamIdList;
         }
+        //缓存中没查到去数据库中查,并刷新缓存
         List<UserExam> userExamList =
                 userExamMapper.selectList(new LambdaQueryWrapper<UserExam>().eq(UserExam::getUserId, userId));
         if (CollectionUtil.isEmpty(userExamList)) {
@@ -144,6 +146,7 @@ public class ExamCacheManager {
                     .eq(Exam::getStatus, Constants.TRUE)
                     .orderByDesc(Exam::getCreateTime));
         } else if (ExamListType.USER_EXAM_LIST.getValue().equals(examListType)) {
+            //查询用户参加的竞赛
             List<ExamVO> examVOList = userExamMapper.selectUserExamList(userId);
             examList = BeanUtil.copyToList(examVOList, Exam.class);
         }
@@ -161,7 +164,7 @@ public class ExamCacheManager {
         redisService.deleteObject(getExamListKey(examListType, userId));//删除redis中可能有错误的数据
         redisService.rightPushAll(getExamListKey(examListType, userId), examIdList);      //刷新列表缓存
     }
-
+    //从数据库中获取竞赛中的题目详情,并刷新到缓存中
     public void refreshExamQuestionCache(Long examId) {
         List<ExamQuestion> examQuestionList = examQuestionMapper.selectList(new LambdaQueryWrapper<ExamQuestion>()
                 .select(ExamQuestion::getQuestionId)

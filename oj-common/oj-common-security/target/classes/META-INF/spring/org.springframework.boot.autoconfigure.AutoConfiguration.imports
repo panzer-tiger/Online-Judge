@@ -1,4 +1,0 @@
-oj.common.security.handle.GlobalExceptionHandler
-oj.common.security.service.TokenService
-oj.common.security.config.WebMvcConfig
-oj.common.security.interceptor.TokenInterceptor
