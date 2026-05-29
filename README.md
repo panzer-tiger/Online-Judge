@@ -214,19 +214,29 @@
 
 ## 数据库设计
 
-系统共使用 9 张数据库表，主要表结构：
+所有表统一存放在 `online_judge` 数据库中，共 28 张表（业务 9 张 + Nacos 11 张 + XXL-Job 8 张）。
+
+### 项目业务表
 
 | 表名 | 说明 | 关键字段 |
 |------|------|----------|
-| tb_sys_user | 系统用户/管理员 | userAccount, userPassword, userRole |
-| tb_user | 普通用户 | userAccount, userPassword, userName, userAvatar, userRole |
-| tb_question | 题目 | title, content, tags, judgeCase, judgeConfig |
-| tb_exam | 竞赛 | title, description, startTime, endTime |
-| tb_exam_question | 竞赛题目关联 | examId, questionId |
-| tb_user_question_submit | 用户提交记录 | userId, questionId, code, status |
-| tb_exam_user | 竞赛报名 | examId, userId |
-| tb_message | 系统消息 | userId, content, isRead |
-| tb_exam_result | 竞赛成绩 | examId, userId, score, rank |
+| tb_sys_user | 系统管理员 | userAccount, nickName, password |
+| tb_user | 普通用户 | nickName, phone, status |
+| tb_question | 题目 | title, difficulty, content, questionCase |
+| tb_exam | 竞赛 | title, startTime, endTime, status |
+| tb_exam_question | 竞赛题目关联 | questionId, examId, questionOrder |
+| tb_user_exam | 竞赛报名 | userId, examId, score, examRank |
+| tb_user_submit | 用户提交记录 | userId, questionId, userCode, pass |
+| tb_message_text | 消息内容 | messageTitle, messageContent |
+| tb_message | 消息 | textId, sendId, recId |
+
+### Nacos 表（v2.2.3，表名由 Nacos 源码硬编码，不可修改）
+
+config_info、config_info_aggr、config_info_beta、config_info_tag、config_tags_relation、his_config_info、group_capacity、tenant_capacity、tenant_info、users、roles、permissions
+
+### XXL-Job 表（v2.4.0，可选）
+
+xxl_job_info、xxl_job_log、xxl_job_log_report、xxl_job_logglue、xxl_job_registry、xxl_job_group、xxl_job_user、xxl_job_lock
 
 ---
 
@@ -486,7 +496,20 @@ docker-compose up -d
 
 2. **初始化数据库**
 
-   使用 Navicat 连接 MySQL（`127.0.0.1:3306`，`root/123456`），执行 `deploy/int.sql` 创建数据库和表。
+   所有业务表、Nacos 表、XXL-Job 表统一存放在 `online_judge` 数据库中。
+
+   使用 Navicat 连接 MySQL（`127.0.0.1:3306`，`root/123456`），执行 `deploy/init.sql`。
+
+   或通过命令行执行：
+   ```bash
+   mysql -u root -p123456 < deploy/init.sql
+   ```
+
+   | 表分类 | 数量 | 说明 |
+   |--------|------|------|
+   | 项目业务表 | 9 张 | tb_sys_user、tb_user、tb_question、tb_exam 等 |
+   | Nacos 配置表 | 11 张 | config_info、users、roles 等（Nacos v2.2.3） |
+   | XXL-Job 表 | 8 张 | xxl_job_info、xxl_job_log 等（XXL-Job v2.4.0，可选） |
 
 3. **配置 Nacos**
 
