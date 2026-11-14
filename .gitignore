@@ -12,3 +12,12 @@ AGENTS.md
 .agents
 .workbuddy
 /.githooks/
+
+# 构建产物与依赖（Maven / 前端）
+target/
+dist/
+dist-ssr/
+node_modules/
+
+# vite 临时产物
+vite.config.js.timestamp-*
