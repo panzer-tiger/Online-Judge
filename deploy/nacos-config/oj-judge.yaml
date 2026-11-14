@@ -1,0 +1,36 @@
+server:
+  port: 9204
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/online_judge?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+jwt:
+  secret: "b25saW5lLWp1ZGdlLWxvY2FsLWRldi1zZWNyZXQta2V5LTAxMjM0NTY3ODlhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ei1BQkNERUY="
+
+sandbox:
+  docker:
+    host: tcp://localhost:2375
+    image: openjdk:8-jdk-alpine
+    volume: /usr/share/java
+    name-prefix: oj-sandbox-jdk
+    pool:
+      size: 4
+  limit:
+    cpu: 1
+    memory: 100000000
+    memory-swap: 100000000
+    time: 5

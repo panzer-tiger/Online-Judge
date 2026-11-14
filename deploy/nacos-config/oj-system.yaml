@@ -1,0 +1,19 @@
+server:
+  port: 9201
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/online_judge?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+  elasticsearch:
+    uris: http://localhost:9200
+
+jwt:
+  secret: "b25saW5lLWp1ZGdlLWxvY2FsLWRldi1zZWNyZXQta2V5LTAxMjM0NTY3ODlhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5ei1BQkNERUY="
