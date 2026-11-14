@@ -234,7 +234,7 @@
 
 config_info、config_info_aggr、config_info_beta、config_info_tag、config_tags_relation、his_config_info、group_capacity、tenant_capacity、tenant_info、users、roles、permissions
 
-### XXL-Job 表（v2.4.0，可选）
+### XXL-Job 表（v2.4.0，共 8 张）
 
 xxl_job_info、xxl_job_log、xxl_job_log_report、xxl_job_logglue、xxl_job_registry、xxl_job_group、xxl_job_user、xxl_job_lock
 
@@ -267,7 +267,7 @@ Online-Judge/
 │   ├── oj-judge/                  # 判题服务
 │   └── oj-job/                    # 定时任务服务
 ├── docker/
-│   └── docker-compose.yml         # 中间件一键启动（MySQL/Redis/Nacos/ES/RabbitMQ/Nginx）
+│   └── docker-compose.yml         # 中间件一键启动（MySQL/Redis/Nacos/ES/RabbitMQ/XXL-Job/Nginx）
 ├── deploy/
 │   ├── init.sql                   # 业务表 9 张
 │   ├── nacos.sql                  # Nacos v2.2.3 表 12 张
@@ -362,23 +362,55 @@ npm -v
 
 #### 方式 A：Docker Compose 一键安装（推荐）
 
-项目已提供 `docker/docker-compose.yml`，所有组件运行在 `online-judge` 网络下：
-
-```bash
-cd docker
-docker-compose up -d
-```
-
-启动的组件：MySQL、Redis、Nacos、Elasticsearch、RabbitMQ、Nginx。
-
-> 说明：compose 中的 Nacos 未配置 `MYSQL_SERVICE_*` 环境变量，使用**内嵌 Derby** 存储，因此无需执行 `deploy/nacos.sql` 即可启动，数据保存在 `nacos-data` 卷中；XXL-Job 未包含在 compose 内，需要单独启动（见方式 B 第 6 步，且**必须先建表**）。
-
-先用 Docker Desktop 验证环境：
+先用 Docker Desktop 确认环境可用：
 
 ```bash
 docker --version
 docker run hello-world
 ```
+
+项目已提供 `docker/docker-compose.yml`，七个组件全部纳入 compose，一条命令起齐（MySQL、Redis、Nacos、Elasticsearch、RabbitMQ、**XXL-Job 调度中心**、Nginx）：
+
+```bash
+cd docker
+docker compose up -d      # 首次执行会拉取镜像，XXL-Job 镜像约 360 MB
+docker compose ps         # 确认 7 个容器都是 Up
+```
+
+> `docker compose` 与 `docker-compose` 是同一工具的新旧两代语法，Docker Desktop 自带的是新版（`docker compose`）。
+
+启动的组件：MySQL、Redis、Nacos、Elasticsearch、RabbitMQ、XXL-Job、Nginx。
+
+> 网络名注意：compose 会创建一个名为 **`docker_online-judge`** 的网络（`docker_` 前缀取自 `docker/` 目录名）。之后单独 `docker run` 其他容器时要接这个网络，容器之间才能用容器名互访。
+
+> 说明：compose 中的 Nacos 未配置 `MYSQL_SERVICE_*` 环境变量，使用**内嵌 Derby** 存储，因此无需执行 `deploy/nacos.sql` 即可启动，数据保存在 `nacos-data` 卷中。
+
+##### XXL-Job 调度中心（已包含在 compose 中）
+
+- 管理界面：<http://localhost:8080/xxl-job-admin>，默认账号 **admin / 123456**
+- `xxl_job_*` 表就在 `online_judge` 库里（**不是**单独的 `xxl_job` 库），所以数据源 URL 里写的是 `online_judge`
+- 建表自动化：compose 把 `deploy/xxl-job.sql` 挂载到 MySQL 的 `/docker-entrypoint-initdb.d/`，**首次启动（`mysql-data` 卷为空）时自动执行**；`xxl-job-admin` 通过 `depends_on: condition: service_healthy` 等 MySQL 就绪后再启动，避免起来时表还没建好
+- 启动验证：`docker logs oj-xxl-job | grep "Started XxlJobAdminApplication"`，能打开登录页即成功
+- 执行器验证：登录后「执行器管理」应出现 `oj-job`；或执行 `SELECT * FROM online_judge.xxl_job_registry;`，有 `registry_key = oj-job` 的记录说明 `oj-job` 服务已注册成功
+- 若 8080 端口被占用，把 compose 中 `xxl-job-admin` 的 `-p 8080:8080` 左侧改成其他端口，并同步修改 Nacos 中 `oj-job.yaml` 的 `xxl.job.admin.addresses`
+
+> **以下两种情况不能靠自动建表，需手工处理**：
+>
+> 1. 已经有旧的 `mysql-data` 卷（不是首次启动，initdb 脚本不会执行）→ 补一次建表再重启：
+>
+> ```bash
+> mysql -h127.0.0.1 -P3306 -uroot -p123456 online_judge < deploy/xxl-job.sql
+> docker compose restart xxl-job-admin
+> ```
+>
+> 2. 之前用 `docker run` 手动起过 XXL-Job → 先删掉旧容器再 `up`，否则容器名和 8080 端口会冲突：
+>
+> ```bash
+> docker rm -f oj-xxl-job
+> docker compose up -d
+> ```
+
+> 不想用 compose 自带的这一份，也可以按「方式 B」里的 `docker run` 手动启动，镜像与参数完全一致。
 
 #### 方式 B：逐个安装
 
@@ -410,8 +442,10 @@ docker run -d --name oj-rabbit --network online-judge \
   -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 # 管理界面 http://localhost:15672  默认 guest / guest
 
-# 6) XXL-Job 调度中心
+# 6) XXL-Job 调度中心（镜像约 360 MB）
 #    前置条件：必须先执行 deploy/xxl-job.sql 建表，否则启动即报数据源错误
+#    网络名：方式 B 自己建的是 online-judge；若中间件来自方式 A 的 compose，要改成 docker_online-judge
+docker pull xuxueli/xxl-job-admin:2.4.0
 docker run -d --name oj-xxl-job --network online-judge -p 8080:8080 \
   -e PARAMS="--spring.datasource.url=jdbc:mysql://oj-mysql:3306/online_judge?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai --spring.datasource.username=root --spring.datasource.password=123456" \
   xuxueli/xxl-job-admin:2.4.0
@@ -443,6 +477,8 @@ docker run -d --name oj-nacos --network online-judge \
 
 **正确顺序**：启动 MySQL → 执行 `deploy/xxl-job.sql`（外接 MySQL 时再加 `deploy/nacos.sql`）→ 启动 XXL-Job / Nacos（外接模式）。
 
+> 用「方式 A」的 compose 时这一步已经自动完成：MySQL 首次启动会执行挂载进去的 `deploy/xxl-job.sql`，`xxl-job-admin` 又通过 `depends_on: condition: service_healthy` 等 MySQL 就绪后才起，所以 `docker compose up -d` 一条命令就能把建表和启动的顺序处理好。
+
 #### 安装 IK 分词器（全文搜索必需）
 
 下载与本项目 ES 版本（8.7.1）一致的 IK 分词器，解压后放入 ES 容器 `/usr/share/elasticsearch/plugins` 目录（或挂载目录），确认安装：
@@ -467,14 +503,16 @@ docker pull openjdk:8-jdk-alpine
 
 业务表、Nacos 表、XXL-Job 表统一存放在 `online_judge` 数据库中，共 **29 张表**（业务 9 + Nacos 12 + XXL-Job 8）。
 
-> **执行时机**：`init.sql`、`xxl-job.sql` 必须在对应服务启动**之前**执行；`nacos.sql` 仅在 Nacos 外接 MySQL 时才需要（默认内嵌 Derby 不需要）。
+> **执行时机**：手工执行时，`init.sql`、`xxl-job.sql` 必须在对应服务启动**之前**执行；`nacos.sql` 仅在 Nacos 外接 MySQL 时才需要（默认内嵌 Derby 不需要）。
+>
+> 用「方式 A」的 compose 启动时，`xxl-job.sql` 已由 MySQL 首次初始化自动执行，无需再手工跑；`init.sql`（业务表）仍需手工导入。`xxl-job.sql` 里全是 `CREATE ... IF NOT EXISTS`，重复执行不会报错。
 
 依次执行 `deploy/` 下的三个脚本：
 
 ```bash
 mysql -u root -p123456 < deploy/init.sql      # 业务表 9 张
 mysql -u root -p123456 < deploy/nacos.sql     # Nacos v2.2.3 表 12 张
-mysql -u root -p123456 < deploy/xxl-job.sql   # XXL-Job v2.4.0 表 8 张（可选）
+mysql -u root -p123456 < deploy/xxl-job.sql   # XXL-Job v2.4.0 表 8 张（compose 方式已自动执行）
 ```
 
 | 脚本                   | 表分类                                              | 数量 |
