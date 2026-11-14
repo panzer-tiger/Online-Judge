@@ -2,9 +2,7 @@ package com.oj.friend.test;
 
 import com.oj.common.core.controller.BaseController;
 import com.oj.common.core.domain.R;
-import com.oj.common.message.service.AliSmsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class TestController extends BaseController {
 
-    @Autowired
-    private AliSmsService aliSmsService;
-
     @GetMapping("/sendCode")
     public R<Void> sendCode(String phone, String code) {
-        log.info("验证码发送测试");
-        return toR(aliSmsService.sendMobileCode(phone,code));
+        // 已移除阿里云短信服务调用，仅打印日志用于本地联调
+        log.info("本地模拟发送验证码，手机号: {}, 验证码: {}（未真正发送短信）", phone, code);
+        return toR(true);
     }
 }

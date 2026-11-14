@@ -71,8 +71,8 @@ public class UserServiceImpl implements UserService {
         if (sendTimes != null && sendTimes >= sendLimit) {
             throw new ServiceException(ResultCode.FAILED_TIME_LIMIT);
         }
-//        String code = RandomUtil.randomNumbers(6);
-        String code = "1234";
+        // 本地开发使用固定验证码，不再调用阿里云短信服务，也不真正发送短信
+        String code = "123456";
         //生成了随机数验证码,存到redis中
         redisService.setCacheObject(phoneKey,code,phoneExpire,TimeUnit.MINUTES);
 
