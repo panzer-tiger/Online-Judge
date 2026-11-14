@@ -10,3 +10,5 @@ AGENTS.md
 .trellis/.runtime/
 .trellis/.cache/
 .agents
+.workbuddy
+/.githooks/
